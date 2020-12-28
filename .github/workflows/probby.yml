@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: SaschaMann/probby/parse-push@first-draft
+      - uses: SaschaMann/probby/packages/parse-push@first-draft
         id: parse-push
       
       - uses: actions/upload-artifact@v2
@@ -32,7 +32,7 @@ jobs:
         with:
           name: payload
       
-      - uses: SaschaMann/probby/notifier@first-draft
+      - uses: SaschaMann/probby/packages/notifier@first-draft
         with:
           token: ${{ secrets.PROBBY_TOKEN }}
           track-repos: julia-1
