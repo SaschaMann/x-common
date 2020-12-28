@@ -1,0 +1,41 @@
+name: Probby
+
+on:
+  push:
+    branches:
+      - 'probby-tests'
+
+jobs:
+  parse-push:
+    name: Parse push event and prepare payload
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: SaschaMann/probby/parse-push@first-draft
+        id: parse-push
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: payload
+          path: ${{ steps.parse-push.outputs.payload-file }}
+  
+  notifier:
+    name: Send notifications to track repos
+    runs-on: ubuntu-latest
+    needs: parse-push
+    environment: notifier_environment
+    steps:
+      - name: Download payload.json
+        id: download
+        uses: actions/download-artifact@v2
+        with:
+          name: payload
+      
+      - uses: SaschaMann/probby/notifier@first-draft
+        with:
+          token: ${{ secrets.PROBBY_TOKEN }}
+          track-repos: julia-1
+          payload-file: ${{ steps.download.outputs.download-path }}
+
+
