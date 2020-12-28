@@ -24,7 +24,7 @@ jobs:
     name: Send notifications to track repos
     runs-on: ubuntu-latest
     needs: parse-push
-    environment: notifier_environment
+    environment: probby_environment
     steps:
       - name: Download payload.json
         id: download
