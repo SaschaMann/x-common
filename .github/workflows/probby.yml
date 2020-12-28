@@ -31,12 +31,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: payload
-          path: ~/payload.json
       
       - uses: SaschaMann/probby/packages/notifier@first-draft
         with:
           token: ${{ secrets.PROBBY_TOKEN }}
           track-repos: julia-1
-          payload-file: ${{ steps.download.outputs.download-path }}
+          payload-file: ${{ steps.download.outputs.download-path }}/payload.json
 
 
